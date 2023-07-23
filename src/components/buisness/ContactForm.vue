@@ -102,8 +102,6 @@ const rules = {
 
 const v$ = useVuelidate(rules, formValue);
 
-console.log(v$);
-
 const $emit = defineEmits<{
   valid: [value: boolean];
 }>();
