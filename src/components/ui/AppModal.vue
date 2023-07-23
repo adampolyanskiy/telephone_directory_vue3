@@ -1,15 +1,11 @@
 <script setup lang="ts">
 import { ModalService } from '@/constants';
-import type { ModalService as IModalService } from '@/interfaces';
+import type { ModalService as IModalService, ModalProps } from '@/interfaces';
 import { Modal } from 'flowbite';
 import { inject, onMounted, ref, watchEffect } from 'vue';
 
-const $props = defineProps<{
-  name: string;
-  title: string;
-  accept: string;
-  cancel: string;
-}>();
+const $props = defineProps<ModalProps>();
+
 
 const $modal = inject<IModalService>(ModalService);
 const modalElement = ref<HTMLElement | null>(null);
