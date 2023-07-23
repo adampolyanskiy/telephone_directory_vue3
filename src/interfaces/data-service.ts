@@ -1,7 +1,7 @@
-export interface DataService<DataType, DataIdType> {
-  getAll(): Promise<DataType[]>;
-  create(contact: DataType): Promise<DataType>;
-  get(id: DataIdType): Promise<DataType>;
-  delete(id: DataIdType): Promise<void>;
-  update(contact: DataType): Promise<void>;
+export interface DataService<TData, TIndex> {
+  getAll(): Promise<TData[]>;
+  add(contact: TData): Promise<TData>;
+  get(id: TIndex): Promise<TData>;
+  delete(id: TIndex): Promise<void>;
+  update(contact: TData): Promise<TData>;
 }
