@@ -35,18 +35,22 @@ describe('Contact Service', () => {
     expect(service.get(id)).toBeDefined();
   });
 
-  test('update', async () => {
-    const contact = await service.get(1);
+  test('update firstname', async () => {
+    let contact = await service.get(1);
 
     if (!contact) {
       throw new Error();
     }
 
-    contact.firstname = faker.person.firstName();
+    const firstname = faker.person.firstName();
+    contact.firstname = firstname;
 
     await service.update(contact);
 
-    expect(await service.get(1)).toBeDefined();
+    contact = await service.get(1);
+
+    expect(contact).toBeDefined();
+    expect(contact?.firstname).toBe(firstname);
   });
 
   test('delete', async () => {
