@@ -40,7 +40,7 @@ defineEmits<{
         @click="$emit('contactUpdate', item)">
         Изменить
       </AppButton>
-      <AppButton @click="$emit('contactUpdate', item.id)"> Удалить </AppButton>
+      <AppButton @click="$emit('contactUpdate', item.id)">Удалить</AppButton>
     </template>
   </AppTable>
 </template>
