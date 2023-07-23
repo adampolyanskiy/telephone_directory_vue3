@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import TelephoneDirectory from './components/buisness/TelephoneDirectory.vue';
 </script>
 
-<template></template>
+<template>
+  <TelephoneDirectory></TelephoneDirectory>
+</template>
 
 <style scoped></style>
