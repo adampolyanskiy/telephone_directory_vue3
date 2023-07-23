@@ -6,6 +6,7 @@ import './assets/styles/main.css';
 import AppButton from './components/ui/AppButton.vue';
 import AppForm from './components/ui/AppForm.vue';
 import AppModal from './components/ui/AppModal.vue';
+import AppPopup from './components/ui/AppPopup.vue';
 import AppTable from './components/ui/AppTable.vue';
 import AppTextInput from './components/ui/AppTextInput.vue';
 import FilterInput from './components/ui/FilterInput.vue';
@@ -24,4 +25,5 @@ app
   .component('AppTable', AppTable)
   .component('AppModal', AppModal)
   .component('AppForm', AppForm)
+  .component('AppPopup', AppPopup)
   .mount('#app');
