@@ -1,7 +1,6 @@
 <script setup lang="ts">
+import AppButton from '@/components/ui/AppButton.vue';
 import type { Contact } from '@/interfaces';
-
-import AppButton from '../ui/AppButton.vue';
 
 defineProps<{
   contacts: Contact[];
