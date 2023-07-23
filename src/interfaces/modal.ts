@@ -10,3 +10,11 @@ export interface ModalService {
   accept(): void;
   cancel(): void;
 }
+
+export interface ModalProps {
+  name: string;
+  message?: string;
+  accept: string;
+  cancel?: string;
+  title?: string;
+}
