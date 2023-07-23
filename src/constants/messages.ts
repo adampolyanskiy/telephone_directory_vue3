@@ -9,5 +9,10 @@ export const MESSAGE = {
   TITLES: {
     ADD: 'Добавить контакт',
     UPDATE: 'Изменить контакт'
-  }
+  },
+  ADD: 'Добавить',
+  GENERATE: 'Сгенерировать',
+  UPDATE: 'Изменить',
+  DELETE: 'Удалить',
+  FILTER: 'Фильтр'
 };
