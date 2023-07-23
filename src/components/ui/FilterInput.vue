@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { MESSAGE } from '@/constants';
+
 const $props = defineProps<{
   modelValue?: string;
 }>();
@@ -28,7 +30,7 @@ const $emit = defineEmits<{
       </div>
       <AppTextInput
         class="pl-10"
-        placeholder="Фильтр"
+        :placeholder="MESSAGE.FILTER"
         :valid="true"
         :model-value="$props.modelValue"
         @update:model-value="$emit('update:modelValue', $event)"></AppTextInput>

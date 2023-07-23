@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AppButton from '@/components/ui/AppButton.vue';
+import { MESSAGE } from '@/constants';
 import type { Contact } from '@/interfaces';
 
 defineProps<{
@@ -38,9 +39,9 @@ defineEmits<{
       <AppButton
         class="mr-4"
         @click="$emit('contactUpdate', item)">
-        Изменить
+        {{ MESSAGE.UPDATE }}
       </AppButton>
-      <AppButton @click="$emit('contactUpdate', item.id)">Удалить</AppButton>
+      <AppButton @click="$emit('contactUpdate', item.id)">{{ MESSAGE.DELETE }}</AppButton>
     </template>
   </AppTable>
 </template>
