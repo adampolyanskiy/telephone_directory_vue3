@@ -27,7 +27,7 @@ const $emit = defineEmits<{
         </svg>
       </div>
       <AppTextInput
-        class="p-4 pl-10"
+        class="pl-10"
         placeholder="Фильтр"
         :valid="true"
         :model-value="$props.modelValue"
