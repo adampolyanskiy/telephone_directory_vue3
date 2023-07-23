@@ -1,2 +1,3 @@
-export * from './contact';
-export * from './data-service';
+export * from '@/interfaces/contact';
+export * from '@/interfaces/data-service';
+export * from '@/interfaces/contact-service';
