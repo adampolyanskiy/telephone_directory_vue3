@@ -24,7 +24,7 @@ defineProps<{
         <tr
           v-for="item in items"
           :key="item.id"
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          class="bg-white even:bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
           <td
             v-for="fieldName in fieldNames"
             :key="fieldName"
