@@ -6,7 +6,6 @@ import { inject, onMounted, ref, watchEffect } from 'vue';
 
 const $props = defineProps<ModalProps>();
 
-
 const $modal = inject<IModalService>(ModalService);
 const modalElement = ref<HTMLElement | null>(null);
 
@@ -16,7 +15,8 @@ function closeModal(accept: boolean) {
 
 onMounted(() => {
   const modal = new Modal(modalElement!.value, {
-    backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40'
+    backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
+    closable: false
   });
 
   watchEffect(() => {
@@ -70,6 +70,7 @@ onMounted(() => {
           class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
           <button
             type="button"
+            :disabled="acceptButtonEnabled"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             @click="closeModal(true)">
             {{ $props.accept }}
