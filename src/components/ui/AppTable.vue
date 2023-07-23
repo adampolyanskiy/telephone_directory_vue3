@@ -1,6 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   fieldNames?: string[];
+  columnNames?: string[];
   items: any[];
 }>();
 </script>
@@ -11,11 +12,11 @@ defineProps<{
       <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
           <th
-            v-for="fieldName in fieldNames"
-            :key="fieldName"
+            v-for="column in columnNames"
+            :key="column"
             scope="col"
             class="px-6 py-3">
-            {{ fieldName }}
+            {{ column }}
           </th>
         </tr>
       </thead>
