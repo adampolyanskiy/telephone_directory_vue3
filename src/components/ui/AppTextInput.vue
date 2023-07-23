@@ -4,8 +4,6 @@ const $props = defineProps<{
   modelValue?: string;
 }>();
 
-console.log($props);
-
 const $emit = defineEmits<{
   'update:modelValue': [value: string];
 }>();
