@@ -29,6 +29,7 @@ const $emit = defineEmits<{
       <AppTextInput
         class="p-4 pl-10"
         placeholder="Фильтр"
+        :valid="true"
         :model-value="$props.modelValue"
         @update:model-value="$emit('update:modelValue', $event)"></AppTextInput>
     </div>
