@@ -1,3 +1,4 @@
 const ContactService = Symbol();
+const ModalService = Symbol();
 
-export { ContactService };
+export { ContactService, ModalService };
