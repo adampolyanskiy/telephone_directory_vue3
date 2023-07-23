@@ -1,3 +1,4 @@
+import 'flowbite/dist/flowbite.js';
 import { createApp } from 'vue';
 
 import App from './App.vue';
