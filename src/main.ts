@@ -4,6 +4,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import './assets/styles/main.css';
 import AppButton from './components/ui/AppButton.vue';
+import AppForm from './components/ui/AppForm.vue';
 import AppModal from './components/ui/AppModal.vue';
 import AppTable from './components/ui/AppTable.vue';
 import AppTextInput from './components/ui/AppTextInput.vue';
@@ -22,4 +23,5 @@ app
   .component('FilterInput', FilterInput)
   .component('AppTable', AppTable)
   .component('AppModal', AppModal)
+  .component('AppForm', AppForm)
   .mount('#app');
