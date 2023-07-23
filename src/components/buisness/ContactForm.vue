@@ -10,8 +10,6 @@ const $props = defineProps<{
   contact?: Contact;
 }>();
 
-console.log($props.contact);
-
 const formValue = reactive<Contact>(
   $props.contact
     ? $props.contact
