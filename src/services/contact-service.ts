@@ -1,25 +1,34 @@
-import type { Contact } from '@/interfaces';
-import type { ContactService as IContactService } from '@/interfaces/contact-service';
+import { ERRORS } from '@/constants/errors';
+import type { Contact, ContactService as IContactService } from '@/interfaces';
+import { db } from '@/models/db';
 
 class ContactService implements IContactService {
-  getAll(): Promise<Contact[]> {
-    throw new Error('Method not implemented.');
+  async getAll(): Promise<Contact[]> {
+    return await db.contacts.toArray();
   }
 
-  get(id: number): Promise<Contact> {
-    throw new Error('Method not implemented.');
+  async get(id: number): Promise<Contact | undefined> {
+    return await db.contacts.get(id);
   }
 
-  add(item: Contact): Promise<Contact> {
-    throw new Error('Method not implemented.');
+  async add(item: Contact): Promise<number> {
+    return (await db.contacts.add(item)) as number;
   }
 
-  update(item: Contact): Promise<Contact> {
-    throw new Error('Method not implemented.');
+  async update(item: Contact): Promise<number> {
+    if (!item.id) {
+      throw new Error(ERRORS.NO_ITEM_ID.message);
+    }
+
+    return await db.contacts.update(item.id, item);
   }
 
-  delete(id: number): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(id: number): Promise<void> {
+    if (!id) {
+      throw new Error(ERRORS.NO_ITEM_ID.message);
+    }
+
+    return await db.contacts.delete(id);
   }
 }
 
