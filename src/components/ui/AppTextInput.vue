@@ -1,8 +1,15 @@
 <script setup lang="ts">
-const $props = defineProps<{
+interface Props {
   label?: string;
   modelValue?: string;
-}>();
+  valid: boolean;
+}
+
+const $props = withDefaults(defineProps<Props>(), {
+  label: undefined,
+  modelValue: undefined,
+  valid: true
+});
 
 const $emit = defineEmits<{
   'update:modelValue': [value: string];
@@ -17,7 +24,11 @@ function updateModelValue(e: Event) {
   <label
     v-if="$props.label"
     :for="($attrs.id as string | undefined)"
-    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+    :class="[
+      'block mb-2 text-sm font-medium',
+      valid && 'text-gray-900 dark:text-white',
+      !valid && 'text-red-700 dark:text-red-500'
+    ]">
     {{ $props.label }}
   </label>
   <input
@@ -25,7 +36,13 @@ function updateModelValue(e: Event) {
     type="text"
     :value="$props.modelValue"
     :placeholder="($attrs.placeholder as string | undefined)"
-    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    :class="[
+      'text-sm, rounded-lg block w-full p-2.5 focus:outline-none',
+      valid &&
+        'bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+      !valid &&
+        'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
+    ]"
     @input="updateModelValue" />
 </template>
 
