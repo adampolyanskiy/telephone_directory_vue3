@@ -14,6 +14,7 @@ defineEmits<{
 
 <template>
   <AppTable
+    v-bind="$attrs"
     :items="contacts"
     :field-names="[
       'firstname',
