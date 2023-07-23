@@ -2,7 +2,7 @@ import { ERRORS } from '@/constants/errors';
 import type { Contact, ContactService as IContactService } from '@/interfaces';
 import { LocalDB, db } from '@/models/db';
 
-class ContactService implements IContactService {
+export class ContactService implements IContactService {
   constructor(private db: LocalDB = db) {}
 
   async getAll(): Promise<Contact[]> {
