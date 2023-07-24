@@ -37,7 +37,7 @@ function updateModelValue(e: Event) {
     :placeholder="$props.label"
     v-bind="$attrs"
     :class="[
-      'text-sm, rounded-lg block w-full p-2.5 focus:outline-none',
+      'text-sm, rounded-lg block w-full p-3 focus:outline-none',
       valid &&
         'bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
       !valid &&

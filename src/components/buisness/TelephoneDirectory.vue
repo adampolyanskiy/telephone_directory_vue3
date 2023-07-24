@@ -2,18 +2,22 @@
 import TelephoneDirectoryTable from '@/components/buisness/TelephoneDirectoryTable.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import FilterInput from '@/components/ui/FilterInput.vue';
-import { ContactService, MODAL_NAMES } from '@/constants';
+import { ContactService, CsvToContactMapper, DEFAULT_FILE_NAMES, MODAL_NAMES } from '@/constants';
 import { ModalService } from '@/constants';
 import { MESSAGE } from '@/constants';
 import type { Contact, ContactService as IContactService } from '@/interfaces';
-import type { ModalService as IModalService } from '@/interfaces';
+import type { CsvToEntityMapper, ModalService as IModalService } from '@/interfaces';
+import { contactToCsvMapper } from '@/services/csv-mappers';
+import FileSaver from 'file-saver';
 import { inject, ref, shallowRef, unref, watchEffect } from 'vue';
 
 import ContactForm from './ContactForm.vue';
+import CsvExportButton from './CsvExportButton.vue';
 import CsvImportButton from './CsvImportButton.vue';
 
-const $modal = inject<IModalService>(ModalService);
+const modal = inject<IModalService>(ModalService);
 const contactService = inject<IContactService>(ContactService);
+const csvToContactMapper = inject<CsvToEntityMapper<Contact>>(CsvToContactMapper);
 const emptyContact = {
   firstname: '',
   lastname: '',
@@ -36,7 +40,7 @@ async function addContact(contact?: Contact) {
     name.value = MODAL_NAMES.CONTACT_ADD;
 
     try {
-      await $modal!.open(MODAL_NAMES.CONTACT_ADD);
+      await modal!.open(MODAL_NAMES.CONTACT_ADD);
     } catch {
       clearFormValue();
       return;
@@ -50,7 +54,7 @@ async function addContact(contact?: Contact) {
   }
 
   if ((await contactService?.add(item)) === -1) {
-    await $modal!.open(MODAL_NAMES.CONTACT_DUPLICATE);
+    await modal!.open(MODAL_NAMES.CONTACT_DUPLICATE);
     return;
   }
 
@@ -62,7 +66,7 @@ async function getContacts() {
 }
 
 async function deleteContact(id: number) {
-  const res = await $modal!.open(MODAL_NAMES.CONTACT_DELETE);
+  const res = await modal!.open(MODAL_NAMES.CONTACT_DELETE);
 
   if (res) {
     await contactService?.delete(id);
@@ -76,7 +80,7 @@ async function updateContact(item: Contact) {
   formValue.value = { ...item };
 
   try {
-    await $modal!.open(MODAL_NAMES.CONTACT_UPDATE);
+    await modal!.open(MODAL_NAMES.CONTACT_UPDATE);
   } catch {
     clearFormValue();
     return;
@@ -91,7 +95,22 @@ function clearFormValue() {
   formValue.value = { ...emptyContact };
 }
 
-function processCSV(csv: string) {}
+async function importCSV(csv: string) {
+  const items = csvToContactMapper!.map(csv);
+  try {
+    await contactService?.bulkPut(items);
+  } catch (e) {
+    console.log(e);
+  }
+  contacts.value = [...items];
+}
+
+function exportCSV() {
+  const blob = new Blob([contactToCsvMapper.map(contacts.value)], {
+    type: 'text/csv; charset=utf-8'
+  });
+  FileSaver.saveAs(blob, DEFAULT_FILE_NAMES.CONTACTS_CSV);
+}
 
 await getContacts();
 
@@ -101,24 +120,33 @@ watchEffect(() => {
 </script>
 
 <template>
-  <main class="py-10 px-5 md:px-36">
-    <div class="bg-gray-50 mb-4 p-3 rounded-lg drop-shadow-md flex flex-wrap">
-      <AppButton
-        class="mr-3 md:basis-0"
-        @click="addContact()"
-        >{{ MESSAGE.ADD }}</AppButton
-      >
-      <AppButton
-        class="mr-3 md:basis-0"
-        @click="addContact(contactService!.generateRandomContact())"
-        >{{ MESSAGE.GENERATE }}</AppButton
-      >
-      <FilterInput
-        v-model.trim="filter"
-        class="w-full md:w-1/3 mt-3 md:mt-0 mr-3">
-      </FilterInput>
-      <div class="ml-auto">
-        <CsvImportButton @change="processCSV($event)"></CsvImportButton>
+  <main class="py-10 px-5 md:px-24">
+    <div class="bg-gray-50 mb-4 p-4 rounded-lg drop-shadow-md flex flex-wrap content-center">
+      <div class="basis-full sm:basis-1/2 sm:pr-1 xl:basis-auto mb-2 xl:mb-0">
+        <AppButton
+          class="w-full h-full"
+          @click="addContact()"
+          >{{ MESSAGE.ADD }}</AppButton
+        >
+      </div>
+      <div class="basis-full sm:basis-1/2 sm:pl-1 xl:basis-auto mb-2 xl:mb-0 xl:pr-1">
+        <AppButton
+          class="w-full h-full"
+          @click="addContact(contactService!.generateRandomContact())"
+          >{{ MESSAGE.GENERATE }}</AppButton
+        >
+      </div>
+      <div class="basis-full xl:basis-2/6 mb-2 xl:mb-0 xl:pl-1 xl:pr-1">
+        <FilterInput v-model.trim="filter"> </FilterInput>
+      </div>
+      <div class="basis-full sm:basis-1/2 sm:pr-1 xl:basis-auto mb-2 xl:mb-0 xl:pl-1 xl:ml-auto">
+        <CsvImportButton @change="importCSV($event)"></CsvImportButton>
+      </div>
+      <div class="basis-full sm:basis-1/2 sm:pl-1 xl:basis-auto mb-2 xl:mb-0">
+        <CsvExportButton
+          class="w-full h-full"
+          @click="exportCSV()">
+        </CsvExportButton>
       </div>
     </div>
     <div>
