@@ -15,6 +15,17 @@ export class ContactService implements IContactService {
   }
 
   async add(item: Contact): Promise<number> {
+    const firstName = item.firstname;
+    const middleName = item.middlename;
+    const lastName = item.lastname;
+    const address = item.address;
+
+    const duplicate = await db.contacts.where({ firstName, middleName, lastName, address }).first();
+
+    if (duplicate) {
+      return -1;
+    }
+
     return (await this.db.contacts.add(item)) as number;
   }
 
