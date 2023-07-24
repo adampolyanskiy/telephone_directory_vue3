@@ -4,15 +4,20 @@ import type { Contact } from '@/interfaces';
 import { useVuelidate } from '@vuelidate/core';
 import { helpers, maxLength, minLength, required } from '@vuelidate/validators';
 import format from 'string-template';
-import { reactive, watchEffect } from 'vue';
+import { ref, watch, watchEffect } from 'vue';
 
 const $props = defineProps<{
-  contact?: Contact;
+  modelValue?: Contact;
 }>();
 
-const formValue = reactive<Contact>(
-  $props.contact
-    ? $props.contact
+const $emit = defineEmits<{
+  valid: [value: boolean];
+  'update:modelValue': [value: Contact];
+}>();
+
+let formValue = ref<Contact>(
+  $props.modelValue
+    ? $props.modelValue
     : {
         firstname: '',
         lastname: '',
@@ -98,13 +103,19 @@ const rules = {
 
 const v$ = useVuelidate(rules, formValue);
 
-const $emit = defineEmits<{
-  valid: [value: boolean];
-}>();
-
 watchEffect(async () => {
   const isValid = await v$.value.$validate();
   $emit('valid', isValid);
+});
+
+watch($props, () => {
+  if ($props.modelValue) {
+    formValue.value = $props.modelValue;
+  }
+});
+
+watch(formValue, () => {
+  $emit('update:modelValue', formValue.value);
 });
 </script>
 
