@@ -2,7 +2,7 @@
 import { VALIDATION_LEN, VALIDATION_MESSAGES, VALIDATION_REGEX } from '@/constants';
 import type { Contact } from '@/interfaces';
 import { useVuelidate } from '@vuelidate/core';
-import { helpers, maxLength, minLength, numeric, required } from '@vuelidate/validators';
+import { helpers, maxLength, minLength, required } from '@vuelidate/validators';
 import format from 'string-template';
 import { reactive, watchEffect } from 'vue';
 
@@ -82,7 +82,6 @@ const rules = {
   },
   homephone: {
     required: helpers.withMessage(VALIDATION_MESSAGES.REQUIRED_FIELD, required),
-    numeric,
     number: helpers.withMessage(
       VALIDATION_MESSAGES.PHONE_LENGTH,
       helpers.regex(VALIDATION_REGEX.TELEPHONE)
@@ -90,7 +89,6 @@ const rules = {
   },
   cellphone: {
     required: helpers.withMessage(VALIDATION_MESSAGES.REQUIRED_FIELD, required),
-    numeric,
     number: helpers.withMessage(
       VALIDATION_MESSAGES.PHONE_LENGTH,
       helpers.regex(VALIDATION_REGEX.TELEPHONE)
