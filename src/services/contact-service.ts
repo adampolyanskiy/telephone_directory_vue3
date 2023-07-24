@@ -45,6 +45,10 @@ export class ContactService implements IContactService {
     return await this.db.contacts.delete(id);
   }
 
+  async bulkPut(contacts: Contact[]): Promise<number> {
+    return (await this.db.contacts.bulkPut(contacts)) as number;
+  }
+
   filterContacts(contacts: Contact[], filter: string): Contact[] {
     return contacts.filter((contact) => {
       for (const key in contact) {
