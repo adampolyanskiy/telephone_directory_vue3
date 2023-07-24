@@ -33,9 +33,10 @@ async function addContact(contact?: Contact) {
   if (!contact) {
     title.value = MESSAGE.TITLES.ADD;
     name.value = MODAL_NAMES.CONTACT_ADD;
-    const res = await $modal!.open(MODAL_NAMES.CONTACT_ADD);
 
-    if (!res) {
+    try {
+      await $modal!.open(MODAL_NAMES.CONTACT_ADD);
+    } catch {
       clearFormValue();
       return;
     }
