@@ -4,13 +4,13 @@ import { reactive } from 'vue';
 export class ModalService implements IModalService {
   private current = reactive<ModalState>({
     name: '',
-    resolve: () => {},
-    reject: () => {}
+    resolve: (value: boolean) => {},
+    reject: (reason: any) => {}
   });
 
   constructor() {}
 
-  open(name: string): Promise<void> {
+  open(name: string): Promise<boolean> {
     this.current.name = name;
 
     return new Promise((resolve, reject) => {
@@ -24,12 +24,12 @@ export class ModalService implements IModalService {
   }
 
   accept(): void {
-    this.current.resolve();
+    this.current.resolve(true);
     this.current.name = '';
   }
 
   cancel(): void {
-    this.current.reject();
+    this.current.reject(false);
     this.current.name = '';
   }
 }
