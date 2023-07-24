@@ -23,7 +23,7 @@ function updateModelValue(e: Event) {
 <template>
   <label
     v-if="$props.label"
-    :for="($attrs.id as string | undefined)"
+    :for="$attrs.id"
     :class="[
       'block mb-2 text-sm font-medium',
       valid && 'text-gray-900 dark:text-white',
