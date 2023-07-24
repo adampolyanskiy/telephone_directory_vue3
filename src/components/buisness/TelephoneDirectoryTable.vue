@@ -41,7 +41,7 @@ defineEmits<{
         @click="$emit('contactUpdate', item)">
         {{ MESSAGE.UPDATE }}
       </AppButton>
-      <AppButton @click="$emit('contactUpdate', item.id)">{{ MESSAGE.DELETE }}</AppButton>
+      <AppButton @click="$emit('contactDelete', item.id)">{{ MESSAGE.DELETE }}</AppButton>
     </template>
   </AppTable>
 </template>
