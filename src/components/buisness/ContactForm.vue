@@ -81,7 +81,7 @@ const rules = {
       minLength(VALIDATION_LEN.ADDRESS.MIN)
     ),
     maxLength: helpers.withMessage(
-      format(VALIDATION_MESSAGES.MIN_LENGTH, VALIDATION_LEN.ADDRESS.MAX),
+      format(VALIDATION_MESSAGES.MAX_LENGTH, VALIDATION_LEN.ADDRESS.MAX),
       maxLength(VALIDATION_LEN.ADDRESS.MAX)
     )
   },
@@ -164,7 +164,9 @@ watch(formValue, () => {
       id="address"
       v-model="formValue.address"
       :valid="!v$.address.$error"
-      label="Адрес"></AppTextInput>
+      label="Адрес"
+      :minlength="VALIDATION_LEN.ADDRESS.MIN"
+      :maxlength="VALIDATION_LEN.ADDRESS.MAX"></AppTextInput>
     <p
       v-for="error of v$.address.$errors"
       :key="error.$uid"
