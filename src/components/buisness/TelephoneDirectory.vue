@@ -10,6 +10,7 @@ import type { ModalService as IModalService } from '@/interfaces';
 import { inject, ref, shallowRef, unref, watchEffect } from 'vue';
 
 import ContactForm from './ContactForm.vue';
+import CsvImportButton from './CsvImportButton.vue';
 
 const $modal = inject<IModalService>(ModalService);
 const contactService = inject<IContactService>(ContactService);
@@ -90,6 +91,8 @@ function clearFormValue() {
   formValue.value = { ...emptyContact };
 }
 
+function processCSV(csv: string) {}
+
 await getContacts();
 
 watchEffect(() => {
@@ -112,8 +115,11 @@ watchEffect(() => {
       >
       <FilterInput
         v-model.trim="filter"
-        class="w-full md:w-1/3 mt-3 md:mt-0">
+        class="w-full md:w-1/3 mt-3 md:mt-0 mr-3">
       </FilterInput>
+      <div class="ml-auto">
+        <CsvImportButton @change="processCSV($event)"></CsvImportButton>
+      </div>
     </div>
     <div>
       <TelephoneDirectoryTable
