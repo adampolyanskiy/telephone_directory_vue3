@@ -47,7 +47,7 @@ async function addContact(contact?: Contact) {
     }
   }
 
-  const item = contact ? contact : unref(formValue.value);
+  const item = contact ? contact : { ...unref(formValue) };
 
   if (!contact) {
     clearFormValue();
