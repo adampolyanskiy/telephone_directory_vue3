@@ -14,5 +14,7 @@ export const MESSAGE = {
   GENERATE: 'Сгенерировать',
   UPDATE: 'Изменить',
   DELETE: 'Удалить',
-  FILTER: 'Фильтр'
+  FILTER: 'Фильтр',
+  IMPORT_CSV: 'Импортировать CSV',
+  EXPORT_CSV: 'Экспортировать в CSV'
 };
