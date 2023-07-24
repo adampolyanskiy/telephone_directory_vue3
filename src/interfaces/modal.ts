@@ -1,3 +1,5 @@
+import type { Contact } from '@/interfaces';
+
 export interface ModalState {
   name: string;
   resolve: (value: void) => void;
@@ -17,4 +19,5 @@ export interface ModalProps {
   accept: string;
   cancel?: string;
   title?: string;
+  acceptButtonEnabled: boolean;
 }
