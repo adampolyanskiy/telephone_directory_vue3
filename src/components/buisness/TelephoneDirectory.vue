@@ -72,9 +72,10 @@ async function updateContact(item: Contact) {
   title.value = MESSAGE.TITLES.UPDATE;
   name.value = MODAL_NAMES.CONTACT_UPDATE;
   formValue.value = { ...item };
-  const res = await $modal!.open(MODAL_NAMES.CONTACT_UPDATE);
 
-  if (!res) {
+  try {
+    await $modal!.open(MODAL_NAMES.CONTACT_UPDATE);
+  } catch {
     clearFormValue();
     return;
   }
