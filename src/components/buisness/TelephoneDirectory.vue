@@ -97,11 +97,7 @@ function clearFormValue() {
 
 async function importCSV(csv: string) {
   const items = csvToContactMapper!.map(csv);
-  try {
-    await contactService?.bulkPut(items);
-  } catch (e) {
-    console.log(e);
-  }
+  await contactService?.bulkPut(items);
   contacts.value = [...items];
 }
 
