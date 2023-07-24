@@ -3,7 +3,7 @@ export const VALIDATION_MESSAGES = {
   MIN_LENGTH: 'Поле должно содержать минимум {0} символ(ов)',
   MAX_LENGTH: 'Поле должно содержать максимум {0} символ(ов)',
   CYRILLIC_ONLY: 'Поле должно содержать только кириллицу',
-  PHONE_LENGTH: 'Поле обязательно'
+  PHONE_LENGTH: 'Номер должен состоять из цифр и их количество должно быть равно 11'
 };
 
 export const VALIDATION_LEN = {
