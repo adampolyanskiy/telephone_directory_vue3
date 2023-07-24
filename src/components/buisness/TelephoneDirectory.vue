@@ -21,14 +21,18 @@ const emptyContact = {
   homephone: '',
   cellphone: ''
 };
-const addFormValid = ref<boolean>(false);
+const formValid = ref<boolean>(false);
 const filter = ref<string>('');
 const contacts = ref<Contact[]>([]);
 const formValue = shallowRef<Contact>({ ...emptyContact });
 const filteredContacts = shallowRef<Contact[]>([]);
+const title = ref<string>('');
+const name = ref<string>('');
 
 async function addContact(contact?: Contact) {
   if (!contact) {
+    title.value = MESSAGE.TITLES.ADD;
+    name.value = MODAL_NAMES.CONTACT_ADD;
     const res = await $modal!.open(MODAL_NAMES.CONTACT_ADD);
 
     if (!res) {
@@ -55,10 +59,6 @@ async function getContacts() {
   contacts.value = await contactService!.getAll();
 }
 
-function clearFormValue() {
-  formValue.value = { ...emptyContact };
-}
-
 async function deleteContact(id: number) {
   const res = await $modal!.open(MODAL_NAMES.CONTACT_DELETE);
 
@@ -66,6 +66,26 @@ async function deleteContact(id: number) {
     await contactService?.delete(id);
     await getContacts();
   }
+}
+
+async function updateContact(item: Contact) {
+  title.value = MESSAGE.TITLES.UPDATE;
+  name.value = MODAL_NAMES.CONTACT_UPDATE;
+  formValue.value = { ...item };
+  const res = await $modal!.open(MODAL_NAMES.CONTACT_UPDATE);
+
+  if (!res) {
+    clearFormValue();
+    return;
+  }
+
+  await contactService?.update(unref(formValue));
+  clearFormValue();
+  await getContacts();
+}
+
+function clearFormValue() {
+  formValue.value = { ...emptyContact };
 }
 
 await getContacts();
@@ -97,6 +117,7 @@ watchEffect(() => {
       <TelephoneDirectoryTable
         class="rounded-lg drop-shadow-lg"
         :contacts="filteredContacts"
+        @contact-update="updateContact($event)"
         @contact-delete="deleteContact($event)">
       </TelephoneDirectoryTable>
     </div>
@@ -116,22 +137,15 @@ watchEffect(() => {
   </AppPopup>
 
   <AppModal
-    :name="MODAL_NAMES.CONTACT_ADD"
-    :title="MESSAGE.TITLES.ADD"
+    :name="name"
+    :title="title"
     :accept="MESSAGE.SAVE"
     :cancel="MESSAGE.CANCEL"
-    :accept-button-enabled="!addFormValid">
+    :accept-button-enabled="!formValid">
     <ContactForm
       v-model="formValue"
-      @valid="addFormValid = $event"></ContactForm>
-  </AppModal>
-
-  <AppModal
-    :name="MODAL_NAMES.CONTACT_UPDATE"
-    :title="MESSAGE.TITLES.UPDATE"
-    :accept="MESSAGE.SAVE"
-    :cancel="MESSAGE.CANCEL">
-    <ContactForm></ContactForm>
+      @valid="formValid = $event">
+    </ContactForm>
   </AppModal>
 </template>
 
