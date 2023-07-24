@@ -35,6 +35,13 @@ describe('Contact Service', () => {
     expect(service.get(id)).toBeDefined();
   });
 
+  test('check duplicate', async () => {
+    const contact = await service.get(1);
+    contact!.id = undefined;
+
+    expect(await service.add(contact!)).toBe(-1);
+  });
+
   test('update firstname', async () => {
     let contact = await service.get(1);
 
