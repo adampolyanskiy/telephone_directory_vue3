@@ -1,0 +1,24 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const fileInput = ref<HTMLElement | null>();
+
+defineEmits(['change']);
+defineExpose({ fileInput });
+</script>
+
+<template>
+  <label
+    :for="$attrs.id"
+    class="text-white inline-block py-3 bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+    <slot></slot>
+  </label>
+  <input
+    ref="fileInput"
+    v-bind="$attrs"
+    class="hidden"
+    type="file"
+    @change="$emit('change', $event)" />
+</template>
+
+<style scoped></style>

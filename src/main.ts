@@ -4,6 +4,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import './assets/styles/main.css';
 import AppButton from './components/ui/AppButton.vue';
+import AppFileInput from './components/ui/AppFileInput.vue';
 import AppForm from './components/ui/AppForm.vue';
 import AppModal from './components/ui/AppModal.vue';
 import AppPopup from './components/ui/AppPopup.vue';
@@ -24,6 +25,7 @@ app
   .provide(ContactToCsvMapper, contactToCsvMapper)
   .component('AppButton', AppButton)
   .component('AppTextInput', AppTextInput)
+  .component('AppFileInput', AppFileInput)
   .component('FilterInput', FilterInput)
   .component('AppTable', AppTable)
   .component('AppModal', AppModal)
