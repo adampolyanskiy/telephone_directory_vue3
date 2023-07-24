@@ -1,14 +1,12 @@
-import type { Contact } from '@/interfaces';
-
 export interface ModalState {
-  name: string;
+  name: string | null;
   resolve: (value: boolean) => void;
   reject: (reason?: any) => void;
 }
 
 export interface ModalService {
   open(name: string): Promise<boolean>;
-  active(): string;
+  active(): string | null;
   accept(): void;
   cancel(): void;
 }

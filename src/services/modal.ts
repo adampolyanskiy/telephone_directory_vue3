@@ -3,9 +3,9 @@ import { reactive } from 'vue';
 
 export class ModalService implements IModalService {
   private current = reactive<ModalState>({
-    name: '',
-    resolve: (value: boolean) => {},
-    reject: (reason: any) => {}
+    name: null,
+    resolve: () => {},
+    reject: () => {}
   });
 
   constructor() {}
@@ -19,18 +19,18 @@ export class ModalService implements IModalService {
     });
   }
 
-  active(): string {
+  active(): string | null {
     return this.current.name;
   }
 
   accept(): void {
     this.current.resolve(true);
-    this.current.name = '';
+    this.current.name = null;
   }
 
   cancel(): void {
     this.current.reject(false);
-    this.current.name = '';
+    this.current.name = null;
   }
 }
 
