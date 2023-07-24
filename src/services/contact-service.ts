@@ -68,8 +68,8 @@ export class ContactService implements IContactService {
       firstname: faker.person.firstName(),
       lastname: faker.person.lastName(),
       middlename: faker.person.middleName(),
-      cellphone: faker.phone.number(),
-      homephone: faker.phone.number(),
+      cellphone: faker.phone.number('8##########'),
+      homephone: faker.phone.number('8##########'),
       address: faker.location.city()
     };
   }
