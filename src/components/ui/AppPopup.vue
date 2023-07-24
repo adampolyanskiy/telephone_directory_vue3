@@ -15,7 +15,8 @@ function closeModal(accept: boolean) {
 
 onMounted(() => {
   const modal = new Modal(modalElement!.value, {
-    backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40'
+    backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
+    closable: false
   });
 
   watchEffect(() => {
