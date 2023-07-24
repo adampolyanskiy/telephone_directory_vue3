@@ -13,9 +13,11 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@types/d3-dsv": "^3.0.1",
     "@types/string-template": "^1.0.2",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.3",
+    "d3-dsv": "^3.0.1",
     "dexie": "^3.2.4",
     "flowbite": "^1.7.0",
     "string-template": "^1.0.0",
