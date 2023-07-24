@@ -25,7 +25,7 @@ export const VALIDATION_LEN = {
   },
   ADDRESS: {
     MIN: 2,
-    MAX: 11
+    MAX: 20
   },
   CELLPHONE: {
     MIN: 11,
