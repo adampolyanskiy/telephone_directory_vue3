@@ -98,21 +98,21 @@ watchEffect(() => {
 </script>
 
 <template>
-  <main class="py-10 px-36">
-    <div class="bg-gray-50 mb-4 p-3 rounded-lg drop-shadow-md flex">
+  <main class="py-10 px-5 md:px-36">
+    <div class="bg-gray-50 mb-4 p-3 rounded-lg drop-shadow-md flex flex-wrap">
       <AppButton
-        class="mr-3"
+        class="mr-3 md:basis-0"
         @click="addContact()"
         >{{ MESSAGE.ADD }}</AppButton
       >
       <AppButton
-        class="mr-3"
+        class="mr-3 md:basis-0"
         @click="addContact(contactService!.generateRandomContact())"
         >{{ MESSAGE.GENERATE }}</AppButton
       >
       <FilterInput
         v-model.trim="filter"
-        class="basis-1/3">
+        class="w-full md:w-1/3 mt-3 md:mt-0">
       </FilterInput>
     </div>
     <div>
